@@ -1,2 +1,2 @@
-# TicTacToe(Kotlin)
+# kotlin
 Started kotlin
