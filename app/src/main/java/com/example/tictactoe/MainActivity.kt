@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             buSelected.setBackgroundColor(getResources().getColor(R.color.red))
             playerOne.add(cellId)
             activePlayer = 2
-            autoPlay()
+            //autoPlay()
         }else{
             buSelected.text = "O"
             buSelected.setBackgroundColor(getResources().getColor(R.color.green))
@@ -52,10 +52,13 @@ class MainActivity : AppCompatActivity() {
         }
          buSelected.isEnabled = false
          checkWinner()
+
 //         if(Toast.toString().contains("Player One is the winner")){
 //             buSelected.isEnabled = false
 //         }
     }
+
+
 
 
 
@@ -119,13 +122,15 @@ class MainActivity : AppCompatActivity() {
 
         if(winner == 1){
             Toast.makeText(this, "Player One is the Winner", Toast.LENGTH_LONG).show()
+            restartGame()
         }else if(winner == 2){
-            Toast.makeText(this, "Player Two is the winner", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Player Two is the Winner", Toast.LENGTH_LONG).show()
+            restartGame()
         }
     }
     fun autoPlay(){
         var emptyCell = ArrayList<Int>()
-        for(cellId in 1..9){
+        for(cellId in 1..9) {
             if (!(playerOne.contains(cellId) || playerTwo.contains(cellId))) {
                 emptyCell.add(cellId)
             }
@@ -148,5 +153,30 @@ class MainActivity : AppCompatActivity() {
             else->{bu1}
         }
         playGame(cellId, buSelected)
+    }
+
+    fun restartGame(){
+        activePlayer = 1
+        playerOne.clear()
+        playerTwo.clear()
+
+        for(cellId in 1..9){
+            val buSelected:Button?
+            buSelected = when(cellId){
+                1->bu1
+                2->bu2
+                3->bu3
+                4->bu4
+                5->bu5
+                6->bu6
+                7->bu7
+                8->bu8
+                9->bu9
+                else->{bu1}
+            }
+            buSelected.text = " "
+            buSelected.setBackgroundColor(getResources().getColor(R.color.teal_200))
+            playGame(cellId, buSelected)
+        }
     }
 }
