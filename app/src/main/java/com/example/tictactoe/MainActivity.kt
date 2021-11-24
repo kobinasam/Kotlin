@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             buSelected.setBackgroundColor(getResources().getColor(R.color.red))
             playerOne.add(cellId)
             activePlayer = 2
-            //autoPlay()
+            autoPlay()
         }else{
             buSelected.text = "O"
             buSelected.setBackgroundColor(getResources().getColor(R.color.green))
@@ -121,9 +121,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(winner == 1){
+            playerOneWinCount = playerTwoWinCount + 1
             Toast.makeText(this, "Player One is the Winner", Toast.LENGTH_LONG).show()
             restartGame()
         }else if(winner == 2){
+            playerTwoWinCount = playerTwoWinCount + 1
             Toast.makeText(this, "Player Two is the Winner", Toast.LENGTH_LONG).show()
             restartGame()
         }
@@ -134,6 +136,9 @@ class MainActivity : AppCompatActivity() {
             if (!(playerOne.contains(cellId) || playerTwo.contains(cellId))) {
                 emptyCell.add(cellId)
             }
+        }
+        if(emptyCell.size == 0){
+            restartGame()
         }
         val r = Random.Default
         val randIndex = r.nextInt(emptyCell.size)
@@ -154,7 +159,8 @@ class MainActivity : AppCompatActivity() {
         }
         playGame(cellId, buSelected)
     }
-
+    var playerOneWinCount = 0
+    var playerTwoWinCount = 0
     fun restartGame(){
         activePlayer = 1
         playerOne.clear()
@@ -175,8 +181,9 @@ class MainActivity : AppCompatActivity() {
                 else->{bu1}
             }
             buSelected.text = " "
-            buSelected.setBackgroundColor(getResources().getColor(R.color.teal_200))
-            playGame(cellId, buSelected)
+            buSelected.setBackgroundColor(getResources().getColor(R.color.whitecolor))
+            buSelected.isEnabled = true
+            Toast.makeText(this, "Player One: $playerOneWinCount, Player Two: $playerTwoWinCount", Toast.LENGTH_LONG).show()
         }
     }
 }
